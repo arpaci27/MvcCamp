@@ -12,7 +12,7 @@ namespace EntityLayer.Concrete
         [Key]
         public int ContentID { get; set; }
         [StringLength(1000)]
-        public string ContentValue { get; set; }
+        public string ContentValue { get; set; } 
         public DateTime ContentDate { get; set; }
 
         public int HeadingID { get; set; }

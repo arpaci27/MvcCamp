@@ -20,7 +20,7 @@ namespace EntityLayer.Concrete
         public string WriterSurName { get; set; }
         [StringLength(100)]
 
-        public string WriterImage { get; set; }
+        public string? WriterImage { get; set; }
         [StringLength(50)]
 
         public string WriterMail { get; set; }
