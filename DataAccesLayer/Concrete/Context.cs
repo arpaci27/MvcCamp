@@ -14,7 +14,7 @@ namespace DataAccesLayer.Concrete
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-UT8GOU6;Database=MvcCampDB;integrated security =true;TrustServerCertificate=True;");
         }
-
+        //
         public DbSet<About> Abouts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Contact> Contacts { get; set; }
