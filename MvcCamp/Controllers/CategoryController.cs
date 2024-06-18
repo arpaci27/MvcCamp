@@ -1,8 +1,11 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace MvcCamp.Controllers
 {
@@ -31,7 +34,20 @@ namespace MvcCamp.Controllers
         public IActionResult AddCategory(Category p)
         {
             //cm.CategoryAddBl(p);
-
+            CategoryValidation categoryValidation = new CategoryValidation();
+            ValidationResult results = categoryValidation.Validate(p);
+            if(results.IsValid)
+            {
+                cm.CategoryAddBl(p);
+                return RedirectToAction("GetCategoryList");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
             return RedirectToAction("GetCategoryList");
         }
     }
