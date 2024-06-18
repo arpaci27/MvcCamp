@@ -1,4 +1,6 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccesLayer.Concrete;
+using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +8,7 @@ namespace MvcCamp.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoryManager cm = new CategoryManager(new EF);
+        CategoryManager cm = new CategoryManager(new EfCategoryDal(new Context()));
         public IActionResult Index()
         {
             return View();
@@ -14,8 +16,8 @@ namespace MvcCamp.Controllers
 
         public IActionResult GetCategoryList()
         {
-            //var categoryValues = cm.GetAllBl(); 
-            return View();
+            var categoryValues = cm.GetList(); 
+            return View(categoryValues);
         }
         [HttpGet]
 
