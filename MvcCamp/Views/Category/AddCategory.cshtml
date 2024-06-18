@@ -2,15 +2,14 @@
 @{
     Layout = null;
 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AddCategory</title>
-</head>
-<body>
-    <h1>Yeni Kategori Ekleme Sayfası</h1>
-</body>
-</html>
+<h1>Yeni Kategori Ekleme Sayfası</h1>
+<br />
+<form class="form-group" method="post">
+    <input type="text" placeholder="Kategori Adı" name="CategoryName" class="form-control" />
+    <br />
+    <input type="text" placeholder="Açıklama giriniz" name="CategoryDescription" class="form-control" />
+    <br />
+    <button class="btn btn-primary">Ekle</button>
+</form>

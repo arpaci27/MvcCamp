@@ -6,7 +6,7 @@ namespace MvcCamp.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoryManager cm = new CategoryManager();
+        CategoryManager cm = new CategoryManager(new EF);
         public IActionResult Index()
         {
             return View();
@@ -14,8 +14,8 @@ namespace MvcCamp.Controllers
 
         public IActionResult GetCategoryList()
         {
-            var categoryValues = cm.GetAllBl(); 
-            return View(categoryValues);
+            //var categoryValues = cm.GetAllBl(); 
+            return View();
         }
         [HttpGet]
 
@@ -28,7 +28,7 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public IActionResult AddCategory(Category p)
         {
-            cm.CategoryAddBl(p);
+            //cm.CategoryAddBl(p);
 
             return RedirectToAction("GetCategoryList");
         }

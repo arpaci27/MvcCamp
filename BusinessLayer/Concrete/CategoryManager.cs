@@ -1,31 +1,27 @@
-﻿using DataAccesLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using DataAccesLayer.Abstract;
+using DataAccesLayer.Concrete;
 using DataAccesLayer.Concrete.Repositories;
 using EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Concrete
 {
-    public class CategoryManager
+    public class CategoryManager : ICategoryService
     {
+        ICategoryDal _categoryDal;
 
-        GenericRepository<Category> repo = new GenericRepository<Category>(new Context());
-       
-        public List<Category> GetAllBl()
+        public CategoryManager(ICategoryDal categoryDal)
         {
-            return repo.List();
+            _categoryDal = categoryDal;
         }
-        public void CategoryAddBl(Category p)
+
+
+
+        
+        public List<Category> GetList()
         {
-            if(p.CategoryName == "" || p.CategoryName.Length <= 3 ||
-                
-                p.CategoryDescription == "" || p.CategoryName.Length >= 51)
-            {
-                // hata mesajı
-            }
-            else
-            {
-                repo.Insert(p);
-            }
+         return  _categoryDal.List();
         }
     }
 }
