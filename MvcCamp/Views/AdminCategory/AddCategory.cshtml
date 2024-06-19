@@ -1,13 +1,11 @@
 ﻿@model EntityLayer.Concrete.Category
-
 @{
-    Layout = null;
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
 <h1>Yeni Kategori Ekleme Sayfası</h1>
 <br />
-
 @using (Html.BeginForm("AddCategory", "AdminCategory", FormMethod.Post))
 {
     <div class="form-group">
@@ -22,4 +20,3 @@
         <button class="btn btn-primary">Kaydet</button>
     </div>
 }
-

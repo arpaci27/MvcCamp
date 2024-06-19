@@ -1,8 +1,33 @@
-﻿
+﻿@using EntityLayer.Concrete
+@model List<Category>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Index</h1>
-
+<br />
+<h1>Kategoriler</h1>
+<br />
+<table class="table table-bordered" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <tr>
+        <th>#</th>
+        <th>Kategori</th>
+        <th>Açıklama</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+        <th>Başlıklar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.CategoryID</th>
+            <td>@item.CategoryName</td>
+            <td>@item.CategoryDescription</td>
+            <td><button class="btn btn-danger" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">Sil</button></td>
+            <td><button class="btn btn-warning" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">Güncelle</button></td>
+            <td><button class="btn btn-primary" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">Başlıklar</button></td>
+        </tr>
+    }
+</table>
+<div style="text-align: center;">
+    <a class="btn btn-primary" href="/AdminCategory/AddCategory" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">Yeni Kategori Ekle</a>
+</div>
