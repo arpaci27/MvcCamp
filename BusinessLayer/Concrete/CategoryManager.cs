@@ -37,7 +37,7 @@ public class CategoryManager : ICategoryService
 
     }
 
-    void CategoryUpdate(Category p)
+    public void CategoryUpdate(Category p)
     {
         _categoryDal.Update(p);
     }

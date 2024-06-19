@@ -3,6 +3,7 @@ using DataAccesLayer.Concrete;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 public class GenericRepository<T> : IRepository<T> where T : class
 {
     private readonly Context _context;
@@ -16,13 +17,17 @@ public class GenericRepository<T> : IRepository<T> where T : class
 
     public void Delete(T p)
     {
-        _object.Remove(p);
+        var deletedEntity = _context.Entry(p);
+        deletedEntity.State = EntityState.Deleted;
+        //_object.Remove(p);
         _context.SaveChanges();
     }
 
     public void Insert(T p)
     {
-        _object.Add(p);
+        var addedEntity = _context.Entry(p);
+        addedEntity.State = EntityState.Added;
+        //_object.Add(p);
         _context.SaveChanges();
     }
 
@@ -38,6 +43,8 @@ public class GenericRepository<T> : IRepository<T> where T : class
 
     public void Update(T p)
     {
+        var updatedEntity = _context.Entry(p);
+        updatedEntity.State = EntityState.Modified;
         _context.SaveChanges();
     }
 
