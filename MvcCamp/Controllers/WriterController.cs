@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
@@ -23,8 +24,21 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public IActionResult AddWriter(Writer p)
         {
-            WriterManager.WriterAdd(p);
-            return RedirectToAction("Index");
+            WriterValidatior writerValidatior = new WriterValidatior();
+            var result = writerValidatior.Validate(p);
+            if (result.IsValid)
+            {
+                WriterManager.WriterAdd(p);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                return View();
+            }
         }
     }
 }
