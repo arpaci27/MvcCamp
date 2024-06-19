@@ -39,4 +39,9 @@ public class GenericRepository<T> : IRepository<T> where T : class
     {
         _context.SaveChanges();
     }
+
+    T IRepository<T>.Get(Expression<Func<T, bool>> filter)
+    {
+        return _object.SingleOrDefault(filter);
+    }
 }
