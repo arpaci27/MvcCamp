@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MvcCamp.Controllers
@@ -12,6 +13,18 @@ namespace MvcCamp.Controllers
         {
             var writerValues = WriterManager.GetList();
             return View(writerValues);
+        }
+
+        [HttpGet]
+        public IActionResult AddWriter()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddWriter(Writer p)
+        {
+            WriterManager.WriterAdd(p);
+            return RedirectToAction("Index");
         }
     }
 }

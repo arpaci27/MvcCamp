@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.ValidationRules
 {
-    public class CategoryValidation : AbstractValidator<Category>
+    public class CategoryValidatior : AbstractValidator<Category>
     {
-        public CategoryValidation()
+        public CategoryValidatior()
         {
             RuleFor(x => x.CategoryName).NotEmpty().WithMessage("Kategori Adını Boş Geçemezsiniz");
             RuleFor(x => x.CategoryName).MinimumLength(3).WithMessage("Kategori Adı En Az 3 Karakter Olmalıdır");

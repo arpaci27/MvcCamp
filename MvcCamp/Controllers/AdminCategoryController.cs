@@ -26,7 +26,7 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public IActionResult AddCategory(Category p)
         {
-            CategoryValidation categoryValidation = new CategoryValidation();
+            CategoryValidatior categoryValidation = new CategoryValidatior();
             ValidationResult results = categoryValidation.Validate(p);
             if (results.IsValid)
             {
