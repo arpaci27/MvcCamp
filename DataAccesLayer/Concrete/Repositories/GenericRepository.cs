@@ -22,6 +22,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
     public void Insert(T p)
     {
         _object.Add(p);
+        _context.SaveChanges();
     }
 
     public List<T> List()

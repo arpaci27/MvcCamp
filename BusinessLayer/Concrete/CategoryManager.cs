@@ -25,17 +25,7 @@ namespace BusinessLayer.Concrete
         }
 
 
-        public void CategoryAddBl(Category p)
-        {
-            if(p.CategoryName == "" || p.CategoryName.Length <= 3 || p.CategoryName.Length >= 51)
-            {
-                // hata mesajı
-            }
-            else
-            {
-                _categoryDal.Insert(p);
-            }
-        }
+
 
         public void CategoryAdd(Category p)
         {

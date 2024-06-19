@@ -33,12 +33,13 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public IActionResult AddCategory(Category p)
         {
-            //cm.CategoryAddBl(p);
             CategoryValidation categoryValidation = new CategoryValidation();
             ValidationResult results = categoryValidation.Validate(p);
-            if(results.IsValid)
+            if (results.IsValid)
             {
-                cm.CategoryAddBl(p);
+                cm.CategoryAdd(p);
+                Console.WriteLine("Category Added");
+
                 return RedirectToAction("GetCategoryList");
             }
             else
@@ -48,7 +49,7 @@ namespace MvcCamp.Controllers
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
-            return RedirectToAction("GetCategoryList");
+            return View();
         }
     }
 }
