@@ -17,6 +17,7 @@ public class GenericRepository<T> : IRepository<T> where T : class
     public void Delete(T p)
     {
         _object.Remove(p);
+        _context.SaveChanges();
     }
 
     public void Insert(T p)
@@ -40,8 +41,11 @@ public class GenericRepository<T> : IRepository<T> where T : class
         _context.SaveChanges();
     }
 
-    T IRepository<T>.Get(Expression<Func<T, bool>> filter)
+    public T Get(Expression<Func<T, bool>> filter)
     {
         return _object.SingleOrDefault(filter);
+
+
     }
 }
+

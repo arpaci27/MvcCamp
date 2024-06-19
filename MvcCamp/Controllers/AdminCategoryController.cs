@@ -1,5 +1,4 @@
-﻿using BusinessLayer.Concrete;
-using BusinessLayer.ValidationRules;
+﻿using BusinessLayer.ValidationRules;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
@@ -43,5 +42,19 @@ namespace MvcCamp.Controllers
                 return View(); // Validasyon hataları ile AddCategory görünümünü geri döndür
             }
         }
+
+        public ActionResult DeleteCategory(int id)
+        {
+            var categorvalue = cm.GetById(id);
+            cm.CategoryDelete(categorvalue);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult EditCategory(int id)
+        {
+            var categoryValue = cm.GetById(id);
+            return View(categoryValue);
+        }
     }
+
 }

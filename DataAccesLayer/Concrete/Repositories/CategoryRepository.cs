@@ -35,5 +35,10 @@ namespace DataAccesLayer.Concrete.Repositories
         {
             throw new NotImplementedException();
         }
+
+        Category IRepository<Category>.Get(Expression<Func<Category, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

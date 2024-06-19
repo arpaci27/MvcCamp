@@ -1,40 +1,49 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccesLayer.Abstract;
-using DataAccesLayer.Concrete;
-using DataAccesLayer.Concrete.Repositories;
 using EntityLayer.Concrete;
-using Microsoft.EntityFrameworkCore;
 
-namespace BusinessLayer.Concrete
+public class CategoryManager : ICategoryService
 {
-    public class CategoryManager : ICategoryService
+    private readonly ICategoryDal _categoryDal;
+
+    public CategoryManager(ICategoryDal categoryDal)
     {
-        ICategoryDal _categoryDal;
+        _categoryDal = categoryDal;
+    }
 
-        public CategoryManager(ICategoryDal categoryDal)
-        {
-            _categoryDal = categoryDal;
-        }
+    public List<Category> GetList()
+    {
+        return _categoryDal.List();
+    }
 
+    public void CategoryAdd(Category p)
+    {
+        _categoryDal.Insert(p);
+    }
 
+    public Category GetById(int id)
+    {
+        return _categoryDal.Get(x => x.CategoryID == id);
+    }
 
-        
-        public List<Category> GetList()
-        {
-         return  _categoryDal.List();
-        }
+    public void CategoryDelete(Category p)
+    {
+        _categoryDal.Delete(p);
+    }
 
+    Category ICategoryService.GetByID(int id)
+    {
+        return _categoryDal.Get(x => x.CategoryID == id);
 
+    }
 
+    void CategoryUpdate(Category p)
+    {
+        _categoryDal.Update(p);
+    }
 
-        public void CategoryAdd(Category p)
-        {
-            _categoryDal.Insert(p);
-        }
-
-        Category ICategoryService.GetById(int id)
-        {
-            return _categoryDal.Get(x => x.CategoryID == id);
-        }
+    void ICategoryService.CategoryUpdate(Category p)
+    {
+        throw new NotImplementedException();
     }
 }
