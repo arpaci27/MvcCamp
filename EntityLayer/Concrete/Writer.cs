@@ -23,6 +23,8 @@ namespace EntityLayer.Concrete
         public string? WriterImage { get; set; }
         [StringLength(100)]
         public string WriterAbout { get; set; }
+        [StringLength(100)]
+        public string WriterTitle { get; set; }
         [StringLength(200)]
 
         public string WriterMail { get; set; }

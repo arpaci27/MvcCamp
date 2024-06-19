@@ -10,6 +10,7 @@ namespace MvcCamp.Controllers
     public class WriterController : Controller
     {
         WriterManager WriterManager = new WriterManager(new EfWriterDal(new Context()));
+        WriterValidatior writerValidatior = new WriterValidatior();
         public IActionResult Index()
         {
             var writerValues = WriterManager.GetList();
@@ -24,7 +25,7 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public IActionResult AddWriter(Writer p)
         {
-            WriterValidatior writerValidatior = new WriterValidatior();
+            
             var result = writerValidatior.Validate(p);
             if (result.IsValid)
             {
@@ -39,6 +40,32 @@ namespace MvcCamp.Controllers
                 }
                 return View();
             }
+        }
+
+        [HttpGet]
+        public IActionResult EditWriter(int id)
+        {
+            var writerValue = WriterManager.GetByID(id);    
+            return View(writerValue);
+        }
+        [HttpPost]
+        public IActionResult EditWriter(Writer p)
+        {
+            var result = writerValidatior.Validate(p);
+            if (result.IsValid)
+            {
+                WriterManager.WriterAdd(p);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                return View();
+            }
+
         }
     }
 }
