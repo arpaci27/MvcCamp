@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccesLayer.Abstract
 {
-    public interface IHeadingDal: IRepository<Heading>
+    public interface IHeadingDal : IRepository<Heading>
     {
     }
 }
