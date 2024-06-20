@@ -54,7 +54,7 @@ namespace MvcCamp.Controllers
             var result = writerValidatior.Validate(p);
             if (result.IsValid)
             {
-                WriterManager.WriterAdd(p);
+                WriterManager.WriterUpdate(p);
                 return RedirectToAction("Index");
             }
             else
