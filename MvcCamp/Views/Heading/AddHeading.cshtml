@@ -1,6 +1,4 @@
-﻿@using EntityLayer.Concrete
-@model List<Heading>
-
+﻿@model EntityLayer.Concrete.Heading
 
 @{
     ViewData["Title"] = "AddHeading";
@@ -24,7 +22,7 @@
         @Html.ValidationMessageFor(x => x.WriterID)
         <br />
         
-        <button class="btn btn-primary">Başlığı Oluştur</button>
+        <button class="btn btn-info">Başlığı Oluştur</button>
     </div>
 }
 

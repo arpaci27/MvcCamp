@@ -18,11 +18,13 @@ namespace MvcCamp.Controllers
         [HttpGet]
         public IActionResult AddHeading()
         {
+            
             return View();
         }
         [HttpPost]  
         public IActionResult AddHeading(Heading heading)
         {
+            heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             hm.HeadingAdd(heading);
             return RedirectToAction("Index");
         }
