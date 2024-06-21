@@ -33,7 +33,9 @@ namespace BusinessLayer.Concrete
                 HeadingName = h.HeadingName,
                 HeadingDate = h.HeadingDate,
                 CategoryID = h.CategoryID,
-                Category = _context.Categories.FirstOrDefault(c => c.CategoryID == h.CategoryID)
+                Category = _context.Categories.FirstOrDefault(c => c.CategoryID == h.CategoryID),
+                WriterID = h.WriterID,
+                Writer = _context.Writers.FirstOrDefault(w => w.WriterID == h.WriterID)
             }).ToList();
         }
 
