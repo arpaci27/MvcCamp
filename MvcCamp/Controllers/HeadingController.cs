@@ -43,5 +43,10 @@ namespace MvcCamp.Controllers
             hm.HeadingAdd(heading);
             return RedirectToAction("Index");
         }
+        
+        public ActionResult ContentyByHeading(int id)
+        {
+            return View();
+        }
     }
 }
