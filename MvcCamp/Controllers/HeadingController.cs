@@ -43,10 +43,32 @@ namespace MvcCamp.Controllers
             hm.HeadingAdd(heading);
             return RedirectToAction("Index");
         }
-        
-        public ActionResult ContentyByHeading(int id)
+        [HttpGet]
+       public IActionResult EditHeading(int id )
         {
-            return View();
+            List<SelectListItem> valueCategory = (from x in cm.GetList()
+                                                  select new SelectListItem
+                                                  {
+                                                      Text = x.CategoryName,
+                                                      Value = x.CategoryID.ToString()
+                                                  }).ToList();
+            ViewBag.vlc = valueCategory;
+            var headingValue = hm.GetByID(id);
+            return View(headingValue);
+        }
+
+        [HttpPost]
+        public IActionResult EditHeading(Heading heading)
+        {
+            hm.HeadingUpdate(heading);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteHeading(int id)
+        {
+            var headingValue = hm.GetByID(id);
+            hm.HeadingDelete(headingValue);
+            return RedirectToAction("Index");
         }
     }
 }
