@@ -67,6 +67,7 @@ namespace MvcCamp.Controllers
         public IActionResult DeleteHeading(int id)
         {
             var headingValue = hm.GetByID(id);
+            headingValue.HeadingStatus = false;
             hm.HeadingDelete(headingValue);
             return RedirectToAction("Index");
         }
