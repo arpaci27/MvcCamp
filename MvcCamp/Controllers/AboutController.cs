@@ -25,5 +25,10 @@ namespace MvcCamp.Controllers
             aboutManager.AboutAdd(p);
             return RedirectToAction("Index");
         }
+
+        public PartialViewResult AboutPartial()
+        {
+            return PartialView();
+        }
     }
 }
