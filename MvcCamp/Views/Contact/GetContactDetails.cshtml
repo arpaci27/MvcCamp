@@ -44,9 +44,9 @@
                                 <!-- /.card-header -->
                                 <div class="card-body p-0">
                                     <div class="mailbox-read-info">
-                                        <h5>Message Subject Is Placed Here</h5>
+                                        <h5>Konu: @Html.DisplayFor(x=>x.Subject)</h5>
                                         <h6>
-                                            From: support@adminlte.io
+                                            From: @Html.DisplayFor(x=>x.UserMail)
                                             <span class="mailbox-read-time float-right">15 Feb. 2015 11:03 PM</span>
                                         </h6>
                                     </div>
@@ -70,11 +70,7 @@
                                     </div>
                                     <!-- /.mailbox-controls -->
                                     <div class="mailbox-read-message">
-                                        <p>Hello John,</p>
-                                        <p>
-                                            Keffiyeh blog
-                                        </p>
-                                        <p>Thanks,<br>Jane</p>
+                                        <p>@Html.DisplayFor(x=>x.Message)</p>
                                     </div>
                                     <!-- /.mailbox-read-message -->
                                 </div>
@@ -85,6 +81,7 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
+                    </div>
             </section>
 </body>
 </html>
