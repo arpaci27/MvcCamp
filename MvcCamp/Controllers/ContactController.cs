@@ -16,5 +16,16 @@ namespace MvcCamp.Controllers
             var contactvalues = _contactmanager.GetList();
             return View(contactvalues);
         }
+        public PartialViewResult MessageSideMenu()
+        {
+               return PartialView();
+        
+        }
+
+        public IActionResult GetContactDetails(int id)
+        {
+            var contactvalues = _contactmanager.GetByID(id);
+            return View(contactvalues);
+        }
     }
 }
