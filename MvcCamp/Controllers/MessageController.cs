@@ -11,7 +11,12 @@ namespace MvcCamp.Controllers
         MessageManager messageMenager = new MessageManager(new EfMessageDal(new Context()));
         public IActionResult Inbox()
         {
-            var messagelist = messageMenager.GetList();
+            var messagelist = messageMenager.GetListInbox();
+            return View(messagelist);
+        }
+        public IActionResult Sendbox()
+        {
+            var messagelist = messageMenager.GetListSendbox();
             return View(messagelist);
         }
     }
