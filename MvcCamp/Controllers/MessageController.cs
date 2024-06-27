@@ -19,5 +19,17 @@ namespace MvcCamp.Controllers
             var messagelist = messageMenager.GetListSendbox();
             return View(messagelist);
         }
+        [HttpGet]
+        public IActionResult NewMessage()
+        {
+           return View();
+        }
+        [HttpPost]
+        public IActionResult NewMessage(Message p)
+        {
+            p.MessageDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            messageMenager.MessageAdd(p);
+            return RedirectToAction("Sendbox");
+        }
     }
 }
