@@ -21,7 +21,7 @@ namespace MvcCamp.Controllers
                return PartialView();
         
         }
-
+        
         public IActionResult GetContactDetails(int id)
         {
             var contactvalues = _contactmanager.GetByID(id);
