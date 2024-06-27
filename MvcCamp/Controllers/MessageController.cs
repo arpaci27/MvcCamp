@@ -19,6 +19,11 @@ namespace MvcCamp.Controllers
             var messagelist = messageMenager.GetListSendbox();
             return View(messagelist);
         }
+        public IActionResult GetInboxMessageDetails(int id)
+        {
+            var inboxMessageValues = messageMenager.GetByID(id);
+            return View(inboxMessageValues);
+        }
         [HttpGet]
         public IActionResult NewMessage()
         {
