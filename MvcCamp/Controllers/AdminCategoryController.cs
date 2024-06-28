@@ -3,6 +3,7 @@ using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MvcCamp.Controllers
@@ -10,7 +11,7 @@ namespace MvcCamp.Controllers
     public class AdminCategoryController : Controller
     {
         CategoryManager cm = new CategoryManager(new EfCategoryDal(new Context()));
-
+        [Authorize]
         public IActionResult Index()
         {
             var categoryValues = cm.GetList();
