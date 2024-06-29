@@ -5,7 +5,7 @@ using Microsoft.Identity;
 
 namespace MvcCamp.Roles
 {
-    public class AdminRoleprovider : RoleProvider
+    public class AdminRoleprovider 
     {
        
     }

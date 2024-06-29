@@ -3,6 +3,7 @@ using BusinessLayer.ValidationRules;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MvcCamp.Controllers
@@ -11,6 +12,7 @@ namespace MvcCamp.Controllers
     {
         MessageManager messageMenager = new MessageManager(new EfMessageDal(new Context()));
         MessageValidator messageValidator = new MessageValidator();
+        [Authorize]
         public IActionResult Inbox()
         {
             var messagelist = messageMenager.GetListInbox();

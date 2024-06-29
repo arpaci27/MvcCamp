@@ -14,6 +14,11 @@ namespace MvcCamp.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            string userName = User.Identity.Name;
+
+            // Hoşgeldiniz mesajı için ViewBag kullan
+            ViewBag.WelcomeMessage = $"Hoşgeldiniz, {userName}";
+
             var categoryValues = cm.GetList();
             return View(categoryValues);
         }
