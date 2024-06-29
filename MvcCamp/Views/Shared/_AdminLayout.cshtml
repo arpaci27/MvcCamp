@@ -56,14 +56,16 @@ to get the desired effect
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview">
-                            <a href="/AdminCategory/Index/" class="nav-link">
+                        @if (User.IsInRole("B"))
+                        {
+                            <li class="nav-item has-treeview">
+                                <a href="/AdminCategory/Index/" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Kategoriler
                                 </p>
                             </a>
-                        </li>
+                        </li>}
                         <li class="nav-item">
                             <a href="/Heading/Index/" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
@@ -122,13 +124,7 @@ to get the desired effect
                                     İletişim & Mesajlar
                                 </p>
                             </a>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tree"></i>
-                                <p>
-                                    Yazılar
-                                </p>
-                            </a>
+                       
                         <li class="nav-item">
                             <a href="pages/calendar.html" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
@@ -208,7 +204,8 @@ to get the desired effect
     <script src="/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE -->
     <script src="/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
-
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
     <!-- OPTIONAL SCRIPTS -->
     <script src="/AdminLTE-3.0.4/plugins/chart.js/Chart.min.js"></script>
     <script src="/AdminLTE-3.0.4/dist/js/demo.js"></script>

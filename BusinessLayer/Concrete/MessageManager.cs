@@ -43,6 +43,21 @@ namespace BusinessLayer.Concrete
 
         public void MessageUpdate(Message p)
         {
+            _messageDal.Update(p);
+        }
+
+        public void MarkAsRead(int messageId)
+        {
+            var message = _messageDal.Get(x => x.MessageID == messageId);
+            if (message != null && message.Unread)
+            {
+                message.Unread = false;
+                _messageDal.Update(message);
+            }
+        }
+
+        void IMessageService.MarkAsRead(Message p)
+        {
             throw new NotImplementedException();
         }
     }

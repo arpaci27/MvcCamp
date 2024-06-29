@@ -16,6 +16,7 @@ namespace MvcCamp.Controllers
         public IActionResult Inbox()
         {
             var messagelist = messageMenager.GetListInbox();
+            ViewBag.UnreadCount = messagelist.Count(m => m.Unread);
             return View(messagelist);
         }
         public IActionResult Sendbox()
@@ -26,6 +27,10 @@ namespace MvcCamp.Controllers
         public IActionResult GetInboxMessageDetails(int id)
         {
             var inboxMessageValues = messageMenager.GetByID(id);
+            if (inboxMessageValues != null && inboxMessageValues.Unread)
+            {
+                messageMenager.MarkAsRead(id);
+            }
             return View(inboxMessageValues);
         }
         public IActionResult GetSendboxMessageDetails(int id)
@@ -58,6 +63,12 @@ namespace MvcCamp.Controllers
             }
             return View();
 
+        }
+        [HttpPost]
+        public IActionResult MarkAsRead(int id)
+        {
+            messageMenager.MarkAsRead(id);
+            return Ok();
         }
     }
 }

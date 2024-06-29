@@ -11,14 +11,33 @@ namespace MvcCamp.Controllers
     {
         ContactManager _contactmanager = new ContactManager(new EfContactDal(new Context()));
         ContactValidator _contactValidator = new ContactValidator();
+        Context _context = new Context();
+
+        public ContactController(Context context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             var contactvalues = _contactmanager.GetList();
             return View(contactvalues);
         }
+        private int GetUnreadMessageCount()
+        {
+            // Replace 'Messages' with your actual DbSet name if different
+            int count = _context.Messages.Count(m => m.Unread);
+            Console.WriteLine($"Unread Message Count: {count}"); // Or use a logging framework
+            return count;
+        }
+
+
+
         public PartialViewResult MessageSideMenu()
         {
-               return PartialView();
+            int unreadMessageCount = GetUnreadMessageCount();
+            ViewBag.UnreadMessageCount = unreadMessageCount;
+            return PartialView();
         
         }
         
