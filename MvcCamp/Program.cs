@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.FileProviders;
+using MvcCamp.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/Login/Logout";
         options.AccessDeniedPath = "/Home/AccessDenied";
     });
-
-
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
