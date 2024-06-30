@@ -77,7 +77,9 @@ namespace MvcCamp.Controllers
             var headingValue = hm.GetByID(id);
             headingValue.HeadingStatus = false;
             hm.HeadingDelete(headingValue);
-            return RedirectToAction("Writer");
+            return RedirectToAction("MyHeading");
         }
+
+
     }
 }
