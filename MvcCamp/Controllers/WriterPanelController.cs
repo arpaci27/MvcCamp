@@ -47,8 +47,37 @@ namespace MvcCamp.Controllers
         {
             heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             heading.WriterID = 24;
+            heading.HeadingStatus  = true;
             hm.HeadingAdd(heading);
-            return RedirectToAction("Index");
+            return RedirectToAction("WriterProfile");
+        }
+        [HttpGet]
+        public IActionResult EditHeading(int id)
+        {
+            List<SelectListItem> valueCategory = (from x in cm.GetList()
+                                                  select new SelectListItem
+                                                  {
+                                                      Text = x.CategoryName,
+                                                      Value = x.CategoryID.ToString()
+                                                  }).ToList();
+            ViewBag.vlc = valueCategory;
+            var headingValue = hm.GetByID(id);
+            return View(headingValue);
+        }
+
+        [HttpPost]
+        public IActionResult EditHeading(Heading heading)
+        {
+            hm.HeadingUpdate(heading);
+            return RedirectToAction("WriterProfile");
+        }
+
+        public IActionResult DeleteHeading(int id)
+        {
+            var headingValue = hm.GetByID(id);
+            headingValue.HeadingStatus = false;
+            hm.HeadingDelete(headingValue);
+            return RedirectToAction("Writer");
         }
     }
 }
