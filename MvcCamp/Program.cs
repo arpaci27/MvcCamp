@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
-using MvcCamp.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 

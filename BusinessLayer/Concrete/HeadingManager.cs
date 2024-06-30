@@ -56,5 +56,26 @@ namespace BusinessLayer.Concrete
         {
             _headingDal.Update(p);
         }
+
+        public List<Heading> GetListByWriter()
+        {
+            return _headingDal.List(x => x.WriterID == 24).Select(h => new Heading
+            {
+                HeadingID = h.HeadingID,
+                HeadingName = h.HeadingName,
+                HeadingDate = h.HeadingDate,
+                HeadingStatus = h.HeadingStatus,
+                CategoryID = h.CategoryID,
+                Category = _context.Categories.FirstOrDefault(c => c.CategoryID == h.CategoryID),
+                WriterID = h.WriterID,
+                Writer = _context.Writers.FirstOrDefault(w => w.WriterID == h.WriterID)
+            }).ToList();
+        }
+
+
+        List<Heading> IHeadingService.GetListByWriter()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
