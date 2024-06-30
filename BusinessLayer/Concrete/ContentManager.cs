@@ -77,5 +77,25 @@ namespace BusinessLayer.Concrete
         {
             return _contentDal.List(x => x.HeadingID == id);
         }
+
+        public List<Content> GetListByWriter()
+        {
+            return _contentDal.List()
+            .Where(x => x.WriterID == 19)
+            .Select(c => new Content
+            {
+                ContentID = c.ContentID,
+                ContentValue = c.ContentValue,
+                ContentDate = c.ContentDate,
+                WriterID = c.WriterID,
+                Writer = _context.Writers.FirstOrDefault(w => w.WriterID == c.WriterID),
+                HeadingID = c.HeadingID,
+                Heading = _context.Headings.FirstOrDefault(h => h.HeadingID == c.HeadingID),
+            }).ToList();
+        }
+        List<Content> IContentService.GetListByWriter()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
