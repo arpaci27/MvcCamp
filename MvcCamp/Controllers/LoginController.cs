@@ -65,6 +65,47 @@ namespace MvcCamp.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public IActionResult WriterLogin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> WriterLoginAsync(Writer p)
+        {
+            Context c = new Context();
+            var writerUserInfo = c.Writers.FirstOrDefault(x => x.WriterMail  == p.WriterMail && x.WriterPassword == p.WriterPassword);
+            if (writerUserInfo != null)
+            {
+                var roles = GetRolesForUser(writerUserInfo.WriterMail);
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, writerUserInfo.WriterMail)
+        };
+
+                // Add roles to claims
+                foreach (var role in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                }
+
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = false,
+                };
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+                return RedirectToAction("WriterProfile", "WriterPanel");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Kullanıcı adı veya şifre yanlış.";
+                return View();
+            }
+        }
     }
 
 }

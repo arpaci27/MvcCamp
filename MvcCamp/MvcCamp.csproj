@@ -128,6 +128,15 @@
     <None Include="wwwroot\login-form-19\scss\bootstrap\_utilities.scss" />
     <None Include="wwwroot\login-form-19\scss\bootstrap\_variables.scss" />
     <None Include="wwwroot\login-form-19\scss\style.scss" />
+    <None Include="wwwroot\login-form-20\.DS_Store" />
+    <None Include="wwwroot\login-form-20\css\.DS_Store" />
+    <None Include="wwwroot\login-form-20\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\login-form-20\css\bootstrap\mixins\.DS_Store" />
+    <None Include="wwwroot\login-form-20\fonts\.DS_Store" />
+    <None Include="wwwroot\login-form-20\images\.DS_Store" />
+    <None Include="wwwroot\login-form-20\js\.DS_Store" />
+    <None Include="wwwroot\login-form-20\scss\.DS_Store" />
+    <None Include="wwwroot\login-form-20\scss\bootstrap\.DS_Store" />
   </ItemGroup>
 
   <ItemGroup>
