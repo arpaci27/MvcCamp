@@ -78,22 +78,24 @@ namespace BusinessLayer.Concrete
             return _contentDal.List(x => x.HeadingID == id);
         }
 
-        public List<Content> GetListByWriter()
+        public List<Content> GetListByWriter(int writerId)
         {
-            return _contentDal.List()
-            .Where(x => x.WriterID == 19)
-            .Select(c => new Content
-            {
-                ContentID = c.ContentID,
-                ContentValue = c.ContentValue,
-                ContentDate = c.ContentDate,
-                WriterID = c.WriterID,
-                Writer = _context.Writers.FirstOrDefault(w => w.WriterID == c.WriterID),
-                HeadingID = c.HeadingID,
-                Heading = _context.Headings.FirstOrDefault(h => h.HeadingID == c.HeadingID),
-            }).ToList();
+            return _context.Contents
+                .Where(x => x.WriterID == writerId)
+                .Select(c => new Content
+                {
+                    ContentID = c.ContentID,
+                    ContentValue = c.ContentValue,
+                    ContentDate = c.ContentDate,
+                    WriterID = c.WriterID,
+                    Writer = _context.Writers.FirstOrDefault(w => w.WriterID == c.WriterID),
+                    HeadingID = c.HeadingID,
+                    Heading = _context.Headings.FirstOrDefault(h => h.HeadingID == c.HeadingID),
+                }).ToList();
         }
-        List<Content> IContentService.GetListByWriter()
+
+
+        List<Content> IContentService.GetListByWriter(int id)
         {
             throw new NotImplementedException();
         }

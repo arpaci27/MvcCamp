@@ -7,20 +7,23 @@
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
+
+
 <!DOCTYPE html>
 <html>
 <body class="hold-transition sidebar-mini">
     <!-- Site wrapper -->
+    @* <h1>@ViewBag.WeclomeMessage</h1> *@
     <div class="wrapper">
         <section class="content">
             <div class="container-fluid">
-
                 <!-- Timelime example  -->
                 <div class="row">
                     <div class="col-md-12">
                         <!-- The time line -->
                         <div class="timeline">
                             <!-- timeline time label -->
+
                             @foreach (var item in Model)
                             {
                                 if (item != null) // item'in null olmadığından emin olun

@@ -13,15 +13,16 @@ namespace MvcCamp.Controllers
         HeadingManager hm = new HeadingManager(new EfHeadingDal(new Context()));
         WriterManager WriterManager = new WriterManager(new EfWriterDal(new Context()));
         CategoryManager cm = new CategoryManager(new EfCategoryDal(new Context()));
+        Context context = new Context();
         public IActionResult WriterProfile()
         {
             return View();
         }
-        [AllowAnonymous]
-        public IActionResult MyHeading()
+        public IActionResult MyHeading(string p)
         {
-            var values = hm.GetListByWriter();
-            return View(values);
+            var writerIdInfo = context.Writers.Where(x => x.WriterMail == p).Select(y => y.WriterID).FirstOrDefault();
+            var contentValues = hm.GetListByWriter(writerIdInfo);
+            return View(contentValues);
         }
         [HttpGet]
         public IActionResult NewHeading()

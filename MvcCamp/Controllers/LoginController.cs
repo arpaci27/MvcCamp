@@ -5,24 +5,26 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-
 namespace MvcCamp.Controllers
 {
     public class LoginController : Controller
     {
-        public string[] GetRolesForUser(string username)
+        public string[] GetRolesForUser(string identifier, string userType)
         {
             using (var context = new Context())
             {
-                var admin = context.Admins.FirstOrDefault(x => x.AdminUserName == username);
-                if (admin != null)
+                if (userType == "admin")
                 {
-                    return new string[] { admin.AdminRole };
+                    var admin = context.Admins.FirstOrDefault(x => x.AdminUserName == identifier);
+                    if (admin != null)
+                    {
+                        return new string[] { admin.AdminRole };
+                    }
                 }
-                // Add more role checks here if needed
                 return new string[0];
             }
         }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -36,13 +38,12 @@ namespace MvcCamp.Controllers
             var adminUserInfo = c.Admins.FirstOrDefault(x => x.AdminUserName == p.AdminUserName && x.AdminPassword == p.AdminPassword);
             if (adminUserInfo != null)
             {
-                var roles = GetRolesForUser(adminUserInfo.AdminUserName);
+                var roles = GetRolesForUser(adminUserInfo.AdminUserName, "admin");
                 var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, adminUserInfo.AdminUserName)
-        };
+                {
+                    new Claim(ClaimTypes.Name, adminUserInfo.AdminUserName)
+                };
 
-                // Add roles to claims
                 foreach (var role in roles)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, role));
@@ -65,29 +66,25 @@ namespace MvcCamp.Controllers
                 return View();
             }
         }
+
         [HttpGet]
         public IActionResult WriterLogin()
         {
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> WriterLoginAsync(Writer p)
+        public async Task<IActionResult> WriterLogin(Writer p)
         {
             Context c = new Context();
-            var writerUserInfo = c.Writers.FirstOrDefault(x => x.WriterMail  == p.WriterMail && x.WriterPassword == p.WriterPassword);
+            var writerUserInfo = c.Writers.FirstOrDefault(x => x.WriterMail == p.WriterMail && x.WriterPassword == p.WriterPassword);
             if (writerUserInfo != null)
             {
-                var roles = GetRolesForUser(writerUserInfo.WriterMail);
                 var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, writerUserInfo.WriterMail)
-        };
-
-                // Add roles to claims
-                foreach (var role in roles)
                 {
-                    claims.Add(new Claim(ClaimTypes.Role, role));
-                }
+                    new Claim(ClaimTypes.Name, writerUserInfo.WriterMail),
+                    new Claim(ClaimTypes.NameIdentifier, writerUserInfo.WriterID.ToString())
+                };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var authProperties = new AuthenticationProperties
@@ -107,5 +104,4 @@ namespace MvcCamp.Controllers
             }
         }
     }
-
 }

@@ -57,23 +57,29 @@ namespace BusinessLayer.Concrete
             _headingDal.Update(p);
         }
 
-        public List<Heading> GetListByWriter()
+        public List<Heading> GetListByWriter(int writerID)
         {
-            return _headingDal.List(x => x.WriterID == 24).Select(h => new Heading
+            // WriterID'ye göre filtrelenmiş başlıkları getirir
+            var filteredHeadings = _headingDal.List(x => x.WriterID == writerID);
+
+            // Başlıkları projekte ederken ilişkili kategoriyi ve yazarı da dahil eder
+            return filteredHeadings.Select(h => new Heading
             {
                 HeadingID = h.HeadingID,
                 HeadingName = h.HeadingName,
                 HeadingDate = h.HeadingDate,
                 HeadingStatus = h.HeadingStatus,
                 CategoryID = h.CategoryID,
+                // İlgili kategoriyi veri tabanından getirir
                 Category = _context.Categories.FirstOrDefault(c => c.CategoryID == h.CategoryID),
                 WriterID = h.WriterID,
+                // İlgili yazarı veri tabanından getirir
                 Writer = _context.Writers.FirstOrDefault(w => w.WriterID == h.WriterID)
             }).ToList();
         }
 
 
-        List<Heading> IHeadingService.GetListByWriter()
+        List<Heading> IHeadingService.GetListByWriter(int writerID)
         {
             throw new NotImplementedException();
         }
