@@ -11,7 +11,6 @@ namespace MvcCamp.Controllers
     public class AdminCategoryController : Controller
     {
         CategoryManager cm = new CategoryManager(new EfCategoryDal(new Context()));
-        [Authorize(Roles="B")]
         public IActionResult Index()
         {
             string userName = User.Identity.Name;

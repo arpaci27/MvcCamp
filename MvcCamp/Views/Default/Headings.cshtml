@@ -1,6 +1,10 @@
-﻿@{
+﻿@using EntityLayer.Concrete;
+@model List<Heading>
+@{
     Layout = null;
 }
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +43,7 @@ to get the desired effect
             <!-- Sidebar -->
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                   
+
                     <div class="info">
                         <a href="#" class="d-block">MVC Yazar Paneli</a>
                     </div>
@@ -59,58 +63,16 @@ to get the desired effect
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
-                            <li class="nav-item has-treeview">
-                                <a href="/WriterPanel/WriterProfile/" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                        @foreach (var item in Model)
+                        {
+                            <li class="nav-item">
+                                <a href="/WriterPanel/MyHeading/" class="nav-link">
                                     <p>
-                                        Profilim
+                                        @item.HeadingName (0)
                                     </p>
                                 </a>
                             </li>
-                        <li class="nav-item">
-                            <a href="/WriterPanel/MyHeading/" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Başlıklar
-                                </p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a href="/WriterPanelMessage/Sendbox/" class="nav-link">
-                                <i class="nav-icon fas fa-tree"></i>
-                                <p>
-                                    Mesajlar
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/WriterPanelContent/MyContent/" class="nav-link">
-                                <i class="nav-icon fas fa-calendar-alt"></i>
-                                <p>
-                                    Yazılarım
-                                </p>
-                            </a>
-                        </li>
-                      
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Siteye Git
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>
-                                    Çıkış Yap
-                                </p>
-                            </a>
-                        </li>
-
-
+                        }
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -122,7 +84,6 @@ to get the desired effect
         <div class="content-wrapper">
 
             <div class="content">
-                @RenderBody()
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
@@ -140,7 +101,6 @@ to get the desired effect
     <!-- AdminLTE -->
     <script src="/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
     <script src="~/js/site.js"></script>
-    @RenderSection("Scripts", required: false)
     <!-- OPTIONAL SCRIPTS -->
     <script src="/AdminLTE-3.0.4/plugins/chart.js/Chart.min.js"></script>
     <script src="/AdminLTE-3.0.4/dist/js/demo.js"></script>

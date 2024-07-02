@@ -13,6 +13,8 @@ namespace MvcCamp.Controllers
         HeadingManager hm = new HeadingManager(new EfHeadingDal(new Context()));
         WriterManager WriterManager = new WriterManager(new EfWriterDal(new Context()));
         CategoryManager cm = new CategoryManager(new EfCategoryDal(new Context()));
+        ContentManager contentm = new ContentManager(new EfContentDal(new Context()));
+
         Context context = new Context();
         public IActionResult WriterProfile()
         {
@@ -20,9 +22,13 @@ namespace MvcCamp.Controllers
         }
         public IActionResult MyHeading(string p)
         {
-            var writerIdInfo = context.Writers.Where(x => x.WriterMail == p).Select(y => y.WriterID).FirstOrDefault();
-            var contentValues = hm.GetListByWriter(writerIdInfo);
-            return View(contentValues);
+            string userEmail = User.Identity.Name;
+            var writerIdInfo = context.Writers.Where(x => x.WriterMail == userEmail).Select(y => y.WriterID).FirstOrDefault();
+
+            // Assuming you have a method to get headings by writer
+            var headingValues = hm.GetListByWriter(writerIdInfo);
+
+            return View(headingValues);
         }
         [HttpGet]
         public IActionResult NewHeading()
@@ -46,11 +52,25 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public IActionResult NewHeading(Heading heading)
         {
+            string userEmail = User.Identity.Name; // Giriş yapmış kullanıcının e-postasını al
+
+            // Yazarın ID'sini e-posta adresine göre veritabanından çek
+            var writerId = context.Writers
+                .Where(x => x.WriterMail == userEmail)
+                .Select(y => y.WriterID)
+                .FirstOrDefault();
+
+            if (writerId == 0) // Eğer yazar bulunamazsa
+            {
+                // Hata işleme - örneğin bir hata sayfasına yönlendirme
+                return RedirectToAction("Error", "Home");
+            }
+
             heading.HeadingDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-            heading.WriterID = 24;
-            heading.HeadingStatus  = true;
+            heading.WriterID = writerId; // Dinamik olarak atanan WriterID
+            heading.HeadingStatus = true;
             hm.HeadingAdd(heading);
-            return RedirectToAction("WriterProfile");
+            return RedirectToAction("MyHeading");
         }
         [HttpGet]
         public IActionResult EditHeading(int id)
@@ -62,7 +82,7 @@ namespace MvcCamp.Controllers
                                                       Value = x.CategoryID.ToString()
                                                   }).ToList();
             ViewBag.vlc = valueCategory;
-            var headingValue = hm.GetByID(id);
+            var headingValue = hm.GetListByWriter(id);
             return View(headingValue);
         }
 

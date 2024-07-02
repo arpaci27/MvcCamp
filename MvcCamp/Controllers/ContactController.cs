@@ -3,6 +3,7 @@ using BusinessLayer.ValidationRules;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MvcCamp.Controllers
@@ -13,11 +14,7 @@ namespace MvcCamp.Controllers
         ContactValidator _contactValidator = new ContactValidator();
         Context _context = new Context();
 
-        public ContactController(Context context)
-        {
-            _context = context;
-        }
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var contactvalues = _contactmanager.GetList();
