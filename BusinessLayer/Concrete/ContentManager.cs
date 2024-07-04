@@ -37,9 +37,9 @@ namespace BusinessLayer.Concrete
             _contentDal.Update(p);
         }
 
-        public Category GetByID(int id)
+        public Content GetByID(int id)
         {
-            throw new NotImplementedException();
+            return _contentDal.Get(x => x.ContentID == id);
         }
 
         public List<Content> GetList()
@@ -56,22 +56,20 @@ namespace BusinessLayer.Concrete
             }).ToList();
         }
 
-       public List<Content> GetListByHeadingId(int id)
+        public List<Content> GetListByHeadingId(int id)
         {
-            //return _contentDal.List(x => x.HeadingID == id);
             return _contentDal.List()
-    .Where(x => x.HeadingID == id)
-    .Select(h => new Content
-    {
-        ContentID = h.ContentID,
-        ContentValue = h.ContentValue,
-        ContentDate = h.ContentDate,
-        WriterID = h.WriterID,
-        Writer = _context.Writers.FirstOrDefault(w => w.WriterID == h.WriterID),
-        HeadingID = h.HeadingID,
-        Heading = _context.Headings.FirstOrDefault(c => c.HeadingID == h.HeadingID),
-    }).ToList();
-
+            .Where(x => x.HeadingID == id)
+            .Select(h => new Content
+            {
+                ContentID = h.ContentID,
+                ContentValue = h.ContentValue,
+                ContentDate = h.ContentDate,
+                WriterID = h.WriterID,
+                Writer = _context.Writers.FirstOrDefault(w => w.WriterID == h.WriterID),
+                HeadingID = h.HeadingID,
+                Heading = _context.Headings.FirstOrDefault(c => c.HeadingID == h.HeadingID),
+            }).ToList();
         }
         List<Content> IContentService.GetListById(int id)
         {

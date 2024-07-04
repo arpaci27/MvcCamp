@@ -1,8 +1,5 @@
-﻿@using EntityLayer.Concrete
-@model List<Content>
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model List<EntityLayer.Concrete.Content>
+
 <!DOCTYPE html>
 <html>
 <body class="hold-transition sidebar-mini">
@@ -22,7 +19,7 @@
                                 {
                                     <br />
                                     <div class="time-label">
-                                        <span class="bg-success"> @item.ContentDate.ToString("dd-MMM-yyyy")</span>
+                                        <span class="bg-success"> @item.ContentDate.ToString("dd-MMM-yyyy") - @item.Writer.WriterName @item.Writer.WriterSurName</span>
                                     </div>
                                     <!-- /.timeline-label -->
                                     <!-- timeline item -->

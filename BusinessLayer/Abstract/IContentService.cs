@@ -13,7 +13,7 @@ namespace BusinessLayer.Abstract
         public List<Content> GetListByWriter(int id);
         List<Content> GetListById(int id);
         void ContentAdd(Content p);
-        Category GetByID(int id);
+        public Content GetByID(int id);
         void ContentDelete(Content p);
         void ContentUpdate(Content p);
     }

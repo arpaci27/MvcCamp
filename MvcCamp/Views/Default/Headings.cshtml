@@ -1,11 +1,9 @@
-﻿@using EntityLayer.Concrete
-@model List<Heading>
+﻿@model List<EntityLayer.Concrete.Heading>
+@using EntityLayer.Concrete
 
 @{
     Layout = null;
-    var contentList = ViewBag.ContentList as List<Content>;
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,10 +42,8 @@
                         @foreach (var item in Model)
                         {
                             <li class="nav-item">
-                                <a href="/WriterPanel/MyHeading/" class="nav-link">
-                                    <p>
-                                        @item.HeadingName
-                                    </p>
+                                <a href="javascript:void(0);" onclick="loadContent(@item.HeadingID)" class="nav-link">
+                                    <p>@(item.HeadingName.Length > 25 ? item.HeadingName.Substring(0, 25) + "..." : item.HeadingName)</p>
                                 </a>
                             </li>
                         }
@@ -56,17 +52,29 @@
             </div>
         </aside>
         <div class="content-wrapper">
-            <div class="content">
-                @Html.Partial("~/Views/Default/Index.cshtml", contentList)
+            <div class="content" id="dynamicContent">
+                @Html.Partial("~/Views/Default/Index.cshtml", ViewBag.ContentList as List<Content>)
             </div>
         </div>
     </div>
     <script src="/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
     <script src="/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
-    <script src="~/js/site.js"></script>
-    <script src="/AdminLTE-3.0.4/plugins/chart.js/Chart.min.js"></script>
-    <script src="/AdminLTE-3.0.4/dist/js/demo.js"></script>
-    <script src="/AdminLTE-3.0.4/dist/js/pages/dashboard3.js"></script>
+    <script>
+        function loadContent(headingId) {
+            $.ajax({
+                url: '@Url.Action("Index", "Default")',
+                type: 'GET',
+                data: { id: headingId },
+                success: function (data) {
+                    $('#dynamicContent').html(data);
+                },
+                error: function () {
+                    alert('Error loading content.');
+                }
+            });
+        }
+    </script>
+    <!-- Other scripts -->
 </body>
 </html>

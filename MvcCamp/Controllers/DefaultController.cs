@@ -16,14 +16,15 @@ namespace MvcCamp.Controllers
         public IActionResult Headings()
         {
             var headingList = headingManager.GetList();
-            ViewBag.ContentList = contentManager.GetList(); // Store contentList in ViewBag
+            ViewBag.ContentList = contentManager.GetList();
             return View(headingList);
         }
 
-        public PartialViewResult Index()
+        public PartialViewResult Index(int id = 0)
         {
-            var contentList = contentManager.GetList();
+            var contentList = contentManager.GetListByHeadingId(id); // Fetches content filtered by heading ID
             return PartialView(contentList);
         }
+
     }
 }
