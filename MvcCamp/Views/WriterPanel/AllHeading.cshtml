@@ -108,6 +108,7 @@
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
                                             <img alt="Avatar" class="table-avatar" src="@item.Writer.WriterImage">
+                                            <p>@item.Writer.WriterName @item.Writer.WriterSurName</p>
                                         </li>
                                     </ul>
                                 </td>
@@ -118,7 +119,7 @@
                                     <a class="btn btn-primary btn-sm" href="javascript:void(0);" onclick="navigateAndStore(@item.HeadingID)">
                                         <i class="fas fa-folder"></i> Yazılar
                                     </a>
-                                    <a class="btn btn-info btn-sm" href="/WriterPanel/EditHeading/@item.HeadingID">
+                                    <a class="btn btn-info btn-sm" href="/WriterPanelContent/AddContent/@item.HeadingID">
                                         <i class="fas fa-pencil-alt"></i> Bu Başlığa Yaz
                                     </a>
                                    
