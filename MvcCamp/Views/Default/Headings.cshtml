@@ -41,8 +41,8 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         @foreach (var item in Model)
                         {
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" onclick="loadContent(@item.HeadingID)" class="nav-link">
+                            <li class="nav-item @(ViewBag.SelectedHeadingId == item.HeadingID ? "active" : "")">
+                                <a href="/Default/Headings/@item.HeadingID" class="nav-link">
                                     <p>@(item.HeadingName.Length > 25 ? item.HeadingName.Substring(0, 25) + "..." : item.HeadingName)</p>
                                 </a>
                             </li>
@@ -52,8 +52,8 @@
             </div>
         </aside>
         <div class="content-wrapper">
-            <div class="content" id="dynamicContent">
-                @Html.Partial("~/Views/Default/Index.cshtml", ViewBag.ContentList as List<Content>)
+            <div class="content">
+                @await Html.PartialAsync("~/Views/Default/Index.cshtml", (List<EntityLayer.Concrete.Content>)ViewBag.ContentList)
             </div>
         </div>
     </div>
@@ -69,8 +69,9 @@
                 success: function (data) {
                     $('#dynamicContent').html(data);
                 },
-                error: function () {
-                    alert('Error loading content.');
+                error: function (xhr, status, error) {
+                    console.error('Error loading content:', error);
+                    alert('İçerik yüklenirken bir hata oluştu.');
                 }
             });
         }

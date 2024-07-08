@@ -100,6 +100,11 @@ namespace MvcCamp.Controllers
             hm.HeadingDelete(headingValue);
             return RedirectToAction("MyHeading");
         }
+        public IActionResult AllHeading()
+        {
+            var headings = hm.GetList();
+            return View(headings);
+        }
 
 
     }
