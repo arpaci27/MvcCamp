@@ -105,5 +105,10 @@ namespace MvcCamp.Controllers
                 return View();
             }
         }
+        public IActionResult LogOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Headings", "Default");
+        }
     }
 }
