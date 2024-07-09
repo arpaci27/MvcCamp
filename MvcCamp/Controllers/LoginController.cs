@@ -1,4 +1,6 @@
-﻿using DataAccesLayer.Concrete;
+﻿using BusinessLayer.Concrete;
+using DataAccesLayer.Concrete;
+using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,6 +13,7 @@ namespace MvcCamp.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        WriterLoginManager WriterLoginManager = new WriterLoginManager(new EfWriterDal(new Context()));
         public string[] GetRolesForUser(string identifier, string userType)
         {
             using (var context = new Context())
@@ -78,8 +81,9 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public async Task<IActionResult> WriterLogin(Writer p)
         {
-            Context c = new Context();
-            var writerUserInfo = c.Writers.FirstOrDefault(x => x.WriterMail == p.WriterMail && x.WriterPassword == p.WriterPassword);
+            ////Context c = new Context();
+            //////var writerUserInfo = c.Writers.FirstOrDefault(x => x.WriterMail == p.WriterMail && x.WriterPassword == p.WriterPassword);
+            var writerUserInfo = WriterLoginManager.GetWriter(p.WriterMail, p.WriterPassword);
             if (writerUserInfo != null)
             {
                 var claims = new List<Claim>
