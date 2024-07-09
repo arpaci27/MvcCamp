@@ -138,7 +138,11 @@
 </body>
 </html>
 
-@Html.PagedListPager((X.PagedList.IPagedList)Model, p => Url.Action("AllHeading", new { p }))
+@Html.PagedListPager((X.PagedList.IPagedList)Model, p => Url.Action("AllHeading", new { p }), new PagedListRenderOptions
+{
+    // Add the custom class name here
+    LiElementClasses = new List<string> {"page-link"}
+})
 
 
 <script>
