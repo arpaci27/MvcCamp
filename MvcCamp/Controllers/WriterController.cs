@@ -13,6 +13,7 @@ namespace MvcCamp.Controllers
         WriterValidatior writerValidatior = new WriterValidatior();
         public IActionResult Index()
         {
+
             var writerValues = WriterManager.GetList();
             return View(writerValues);
         }
