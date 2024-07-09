@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
@@ -9,17 +10,43 @@ using X.PagedList;
 
 namespace MvcCamp.Controllers
 {
+    [Authorize]
     public class WriterPanelController : Controller
     {
         HeadingManager hm = new HeadingManager(new EfHeadingDal(new Context()));
-        WriterManager WriterManager = new WriterManager(new EfWriterDal(new Context()));
+        WriterManager wm = new WriterManager(new EfWriterDal(new Context()));
         CategoryManager cm = new CategoryManager(new EfCategoryDal(new Context()));
         ContentManager contentm = new ContentManager(new EfContentDal(new Context()));
-
+        WriterValidatior writerValidatior = new WriterValidatior();
         Context context = new Context();
-        public IActionResult WriterProfile()
+        [HttpGet]
+        public IActionResult WriterProfile(int id)
         {
-            return View();
+            string userEmail = User.Identity.Name;
+           
+            id= context.Writers.Where(x => x.WriterMail == userEmail).Select(y => y.WriterID).FirstOrDefault();
+            var writerValue = wm.GetByID(id);
+          
+            return View(writerValue);
+        }
+        [HttpPost]
+        public IActionResult WriterProfile(Writer p)
+        {
+            var result = writerValidatior.Validate(p);
+            if (result.IsValid)
+            {
+                wm.WriterUpdate(p);
+                return RedirectToAction("AllHeading");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+                return View();
+            }
+
         }
         public IActionResult MyHeading(string p)
         {
@@ -40,7 +67,7 @@ namespace MvcCamp.Controllers
                                                       Text = x.CategoryName,
                                                       Value = x.CategoryID.ToString()
                                                   }).ToList();
-            List<SelectListItem> valueWriter = (from x in WriterManager.GetList()
+            List<SelectListItem> valueWriter = (from x in wm.GetList()
                                                 select new SelectListItem
                                                 {
                                                     Text = x.WriterName + " " + x.WriterSurName,

@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MvcCamp.Controllers
 {
+    [Authorize]
     public class WriterPanelMessageController : Controller
     {
         MessageManager messageMenager = new MessageManager(new EfMessageDal(new Context()));
         MessageValidator messageValidator = new MessageValidator();
         Context context = new Context();
-        [Authorize]
+        
         public IActionResult Inbox()
         {
             string userEmail = User.Identity.Name;

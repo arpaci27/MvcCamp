@@ -2,11 +2,13 @@
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace MvcCamp.Controllers
 {
+    [Authorize]
     public class WriterPanelContentController : Controller
     {
         ContentManager cm = new ContentManager(new EfContentDal(new Context()));
