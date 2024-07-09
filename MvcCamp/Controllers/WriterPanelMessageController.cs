@@ -3,6 +3,7 @@ using BusinessLayer.ValidationRules;
 using DataAccesLayer.Concrete;
 using DataAccesLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MvcCamp.Controllers
@@ -11,10 +12,13 @@ namespace MvcCamp.Controllers
     {
         MessageManager messageMenager = new MessageManager(new EfMessageDal(new Context()));
         MessageValidator messageValidator = new MessageValidator();
-      
+        Context context = new Context();
+        [Authorize]
         public IActionResult Inbox()
         {
-            var messagelist = messageMenager.GetListInbox();
+            string userEmail = User.Identity.Name;
+            var writerIdInfo = context.Writers.Where(x => x.WriterMail == userEmail).Select(y => y.WriterID).FirstOrDefault();
+            var messagelist = messageMenager.GetListInbox(userEmail);
             ViewBag.UnreadCount = messagelist.Count(m => m.Unread);
             return View(messagelist);
         }

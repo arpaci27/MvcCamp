@@ -13,9 +13,9 @@ namespace MvcCamp.Controllers
         MessageManager messageMenager = new MessageManager(new EfMessageDal(new Context()));
         MessageValidator messageValidator = new MessageValidator();
         [Authorize]
-        public IActionResult Inbox()
+        public IActionResult Inbox(string p)
         {
-            var messagelist = messageMenager.GetListInbox();
+            var messagelist = messageMenager.GetListInbox(p);
             ViewBag.UnreadCount = messagelist.Count(m => m.Unread);
             return View(messagelist);
         }
