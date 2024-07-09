@@ -42,7 +42,7 @@ namespace BusinessLayer.Concrete
             return _contentDal.Get(x => x.ContentID == id);
         }
 
-        public List<Content> GetList()
+        public List<Content> GetList(string p)
         {
             return _contentDal.List().Select(h => new Content
             {
@@ -96,6 +96,20 @@ namespace BusinessLayer.Concrete
         List<Content> IContentService.GetListByWriter(int id)
         {
             throw new NotImplementedException();
+        }
+
+        List<Content> IContentService.GetList()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Content> IContentService.GetListBySearch(string p)
+        {
+            throw new NotImplementedException();
+        }
+        public List<Content> GetListBySearch(string p)
+        {
+            return _contentDal.List(x => x.ContentValue.Contains(p));
         }
     }
 }

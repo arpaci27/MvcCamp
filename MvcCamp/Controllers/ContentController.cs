@@ -12,6 +12,19 @@ namespace MvcCamp.Controllers
         {
             return View();
         }
+        public IActionResult GetAllContent(string p)
+        {
+            if (p == null)
+            {
+                var values = cm.GetList(p);
+                return View(values);
+            }
+            else { 
+            var values = cm.GetListBySearch(p);
+                return View(values);
+            }
+           
+        }
         public IActionResult ContentByHeading(int id)
         {
             var contentValues = cm.GetListByHeadingId(id);
