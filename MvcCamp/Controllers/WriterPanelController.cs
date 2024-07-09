@@ -5,6 +5,7 @@ using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace MvcCamp.Controllers
 {
@@ -100,10 +101,11 @@ namespace MvcCamp.Controllers
             hm.HeadingDelete(headingValue);
             return RedirectToAction("MyHeading");
         }
-        public IActionResult AllHeading()
+        public IActionResult AllHeading(int p = 1)
         {
-            var headings = hm.GetList();
-            return View(headings);
+            if (p < 1) p = 1;  // Ensure the page number is at least 1
+            var headings = hm.GetList().ToPagedList(p, 4);
+            return View((X.PagedList.IPagedList<Heading>)headings); // Cast to IPagedList
         }
 
 

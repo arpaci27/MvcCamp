@@ -1,5 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<Heading>
+@using X.PagedList.Mvc.Core
+@* @model PagedList.IPagedList<Heading> *@
+@model X.PagedList.IPagedList<EntityLayer.Concrete.Heading>
 
 @{
     ViewData["Title"] = "AllHeading";
@@ -136,8 +138,8 @@
 </body>
 </html>
 
-<a href="/WriterPanel/NewHeading/" class="btn btn-info">Yeni Başlık Ekle</a>
-<br />
+@Html.PagedListPager((X.PagedList.IPagedList)Model, p => Url.Action("AllHeading", new { p }))
+
 
 <script>
     function navigateAndStore(headingId) {
