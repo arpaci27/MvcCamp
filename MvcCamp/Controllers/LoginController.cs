@@ -97,7 +97,7 @@ namespace MvcCamp.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
-                return RedirectToAction("WriterProfile", "WriterPanel");
+                return RedirectToAction("MyContent", "WriterPanelContent");
             }
             else
             {

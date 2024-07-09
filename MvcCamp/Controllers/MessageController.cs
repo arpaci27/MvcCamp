@@ -19,9 +19,9 @@ namespace MvcCamp.Controllers
             ViewBag.UnreadCount = messagelist.Count(m => m.Unread);
             return View(messagelist);
         }
-        public IActionResult Sendbox()
+        public IActionResult Sendbox(string p)
         {
-            var messagelist = messageMenager.GetListSendbox();
+            var messagelist = messageMenager.GetListSendbox(p);
             return View(messagelist);
         }
         public IActionResult GetInboxMessageDetails(int id)

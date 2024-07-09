@@ -24,7 +24,9 @@ namespace MvcCamp.Controllers
         }
         public IActionResult Sendbox()
         {
-            var messagelist = messageMenager.GetListSendbox();
+            string userEmail = User.Identity.Name;
+            var writerIdInfo = context.Writers.Where(x => x.WriterMail == userEmail).Select(y => y.WriterID).FirstOrDefault();
+            var messagelist = messageMenager.GetListSendbox(userEmail);
             return View(messagelist);
         }
 
@@ -56,11 +58,13 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public IActionResult NewMessage(Message p)
         {
+            string userEmail = User.Identity.Name;
+            var writerIdInfo = context.Writers.Where(x => x.WriterMail == userEmail).Select(y => y.WriterID).FirstOrDefault();
             p.MessageDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             var result = messageValidator.Validate(p);
             if (result.IsValid)
             {
-                p.SenderMail = "arpaci.omer2@gmail.coö";
+                p.SenderMail = userEmail;
                 messageMenager.MessageAdd(p);
                 return RedirectToAction("Sendbox");
             }

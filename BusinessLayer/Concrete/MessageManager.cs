@@ -27,9 +27,9 @@ namespace BusinessLayer.Concrete
         {
             return _messageDal.List(x=>x.ReceiverMail == p);  
         }
-        public List<Message> GetListSendbox()
+        public List<Message> GetListSendbox(string p)
         {
-            return _messageDal.List(x => x.SenderMail == "arpaci.omer2@gmail.coö");
+            return _messageDal.List(x => x.SenderMail == p);
         }
         public void MessageAdd(Message p)
         {
