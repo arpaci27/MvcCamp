@@ -30,6 +30,7 @@ namespace BusinessLayer.Concrete
 
         public void AdminUpdate(Admin p)
         {
+            _adminDal.Update(p);
         }
 
         public Admin GetByID(int id)
