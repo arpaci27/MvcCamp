@@ -17,6 +17,25 @@
         @Html.TextBoxFor(x => x.CategoryDescription, new { @class = "form-control" })
         @Html.ValidationMessageFor(x => x.CategoryDescription, "", new { @class = "text-danger" })
         <br /><br />
-        <button class="btn btn-primary">Kaydet</button>
+        <button id="kaydet" class="btn btn-primary">Kaydet</button>
     </div>
 }
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById("kaydet").addEventListener("click", function (event) {
+        event.preventDefault(); // Bu satır, formun otomatik olarak submit edilmesini engeller
+
+        Swal.fire({
+            title: 'Tebrikler!',
+            text: 'Kategori başarıyla güncellendi.',
+            icon: 'success',
+            confirmButtonText: 'İlerle'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Formu submit edin
+                document.forms[0].submit();
+            }
+        });
+    });
+</script>

@@ -20,6 +20,24 @@
         @Html.DropDownListFor(x => x.WriterID, (List<SelectListItem>)ViewBag.vlw, new { @class = "form-control" })
         <br />
 
-        <button class="btn btn-info">Başlığı Oluştur</button>
+        <button id="kaydet" class="btn btn-info">Başlığı Oluştur</button>
     </div>
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById("kaydet").addEventListener("click", function (event) {
+        event.preventDefault(); // Bu satır, formun otomatik olarak submit edilmesini engeller
+
+        Swal.fire({
+            title: 'Tebrikler!',
+            text: 'Başlık Başarıyla Oluşturuldu.',
+            icon: 'success',
+            confirmButtonText: 'İlerle'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Formu submit edin
+                document.forms[0].submit();
+            }
+        });
+    });
+</script>

@@ -20,6 +20,24 @@
         @Html.Label("Rolü Seçiniz")
         @Html.DropDownListFor(x => x.AdminRole, (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "form-control" })
         <br /><br />
-        <button class="btn btn-primary">Güncelle</button>
+        <button id="kaydet" class="btn btn-primary">Güncelle</button>
     </div>
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById("kaydet").addEventListener("click", function (event) {
+        event.preventDefault(); // Bu satır, formun otomatik olarak submit edilmesini engeller
+
+        Swal.fire({
+            title: 'Tebrikler!',
+            text: 'Admin Bilgileri Başarıyla Güncellendi.',
+            icon: 'success',
+            confirmButtonText: 'İlerle'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Formu submit edin
+                document.forms[0].submit();
+            }
+        });
+    });
+</script>
