@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using System.Security.Claims;
 
 namespace MvcCamp.Controllers
@@ -39,15 +40,17 @@ namespace MvcCamp.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(Admin p)
         {
+            
+
             Context c = new Context();
             var adminUserInfo = c.Admins.FirstOrDefault(x => x.AdminUserName == p.AdminUserName && x.AdminPassword == p.AdminPassword);
             if (adminUserInfo != null)
             {
                 var roles = GetRolesForUser(adminUserInfo.AdminUserName, "admin");
                 var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, adminUserInfo.AdminUserName)
-                };
+        {
+            new Claim(ClaimTypes.Name, adminUserInfo.AdminUserName)
+        };
 
                 foreach (var role in roles)
                 {
@@ -71,6 +74,7 @@ namespace MvcCamp.Controllers
                 return View();
             }
         }
+
 
         [HttpGet]
         public IActionResult WriterLogin()
