@@ -6,11 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-builder.Services.AddRecaptcha(new RecaptchaOptions
-{
-    SiteKey = "6LdGtwwqAAAAAD59bvUx1LKOx4Lk-N0DFeBPRO9a",
-    SecretKey = "6LdGtwwqAAAAAK7jZg19qvtohxYheC0qQxdMy1nr"
-});
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
     {
