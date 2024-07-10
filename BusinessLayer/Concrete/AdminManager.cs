@@ -20,7 +20,7 @@ namespace BusinessLayer.Concrete
 
         public void AdminAdd(Admin p)
         {
-            throw new NotImplementedException();
+            _adminDal.Insert(p);
         }
 
         public void AdminDelete(Admin p)
