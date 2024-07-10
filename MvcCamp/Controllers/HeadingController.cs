@@ -17,6 +17,12 @@ namespace MvcCamp.Controllers
             var headingValues = hm.GetList();
             return View(headingValues);
         }
+
+        public IActionResult HeadingReport()
+        {
+            var headingValues = hm.GetList();
+            return View(headingValues);
+        }
         [HttpGet]
         public IActionResult AddHeading()
         {
