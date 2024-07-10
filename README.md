@@ -24,6 +24,9 @@ Welcome to the **MvcCamp Project**! This project leverages the power of the ASP.
 - **Entity Framework**
 - **LINQ**
 - **Sweet Alert**
+
+## Showcase Video: https://youtu.be/udc9WWuCPZY
+
 ## Screenshots
 Here are some screenshots showcasing the application:
 
